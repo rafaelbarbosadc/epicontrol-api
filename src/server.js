@@ -11,7 +11,9 @@ class App {
     this.middlewares();
     this.routes();
 
-    this.express.listen(5050, () => console.log(`Server is running at 3001`));
+    this.express.listen(process.env.PORT || 5000, () =>
+      console.log(`Server is running at 3001`)
+    );
   }
 
   database() {
