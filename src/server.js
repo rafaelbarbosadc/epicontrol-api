@@ -11,7 +11,7 @@ class App {
     this.middlewares();
     this.routes();
 
-    this.express.listen(80, () => console.log(`Server is running at 3001`));
+    this.express.listen(5050, () => console.log(`Server is running at 3001`));
   }
 
   database() {
