@@ -10,7 +10,7 @@ class App {
     this.middlewares();
     this.routes();
 
-    this.express.listen(3001, () => console.log(`Server is running at 3001`));
+    this.express.listen(80, () => console.log(`Server is running at 3001`));
   }
 
   database() {
@@ -22,6 +22,7 @@ class App {
 
   middlewares() {
     this.express.use(express.json());
+    this.express.use(cors());
   }
 
   routes() {
