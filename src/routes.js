@@ -6,6 +6,7 @@ const routes = express.Router();
 // Tests
 routes.get("/test", TestController.list);
 routes.post("/test", TestController.create);
+routes.get("/testsByResult", TestController.testsByResult);
 
 // Users
 routes.post("/user", UserController.create);

@@ -16,8 +16,41 @@ class TestController {
   async list(req, res) {
     const tests = await TestSchema.find({})
       .sort({ createdAt: -1 })
-      .populate("user", "name");
+      .populate("user", "name")
+      .limit(15);
     return res.json(tests);
+  }
+
+  async testsByResult(req, res) {
+    const test = await TestSchema.aggregate([
+      {
+        $group: {
+          _id: "$result",
+          value: { $sum: 1 },
+        },
+      },
+      {
+        $project: {
+          name: "$_id",
+          _id: false,
+          value: true,
+        },
+      },
+    ]);
+
+    let formatted = test.map((result) => {
+      return { ...result, name: result.name ? "Sucesso" : "Falha" };
+    });
+
+    formatted.sort(function (a, b) {
+      if (a["name"] === "Sucesso") {
+        return -1;
+      } else {
+        return 1;
+      }
+    });
+
+    return res.json(formatted);
   }
 }
 
